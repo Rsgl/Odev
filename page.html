@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+var elements = document.getElementsByClassName("valid");
+var REemail = /^([A-Za-z0-9\.\_\-]+@{1}[A-Za-z]{2,15}\.[A-Za-z]{2,10}(\.[A-Za-z]{2,10})?)$/;
+var REsayisal = /^[0-9]*$/;
+var REbasamakli = /^([0-9]{12})$/;
+var REalfa = /^[a-zA-Z\İ\ı\Ö\ö\Ü\ü\Ğ\ğ\Ş\ş\Ç\ç]*$/;
+var REmax = /^([a-zA-Z\İ\ı\Ö\ö\Ü\ü\Ğ\ğ\Ş\ş\Ç\ç]{1,30})$/;
+var REuckelime = /^[a-zA-Z\-\İ\ı\Ö\ö\Ü\ü\Ğ\ğ\Ş\ş\Ç\ç]+\s+[a-zA-Z\-\İ\ı\Ö\ö\Ü\ü\Ğ\ğ\Ş\ş\Ç\ç]+\s+[a-zA-Z\-\İ\ı\Ö\ö\Ü\ü\Ğ\ğ\Ş\ş\Ç\ç]+$/;
+var REpassword = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\.\_\-])([A-Za-z0-9\.\_\-]{8,16})$/;
+function validateForm() {
+   NameValidate();
+   EmailValidate();
+   SayisalValidate();
+   BasamakliValidate();
+   AlfaValidate();
+   MaxValidate();
+   UcKelimeValidate();
+   PasswordValidate();
+  for(var i = 0; i < elements.length; i++) {
+	if(elements[i].style.display != "none") {
+		alert("Hatalı Alanları Doğru Şekilde Doldurduktan Sonra Tekrar Deneyin");
+		return false;
+	}
+  }
+}
+function NameValidate() {
+  if(document.getElementById("name").value.trim() == "") {
+	elements[0].style.display = "block";
+  } else {
+	elements[0].style.display = "none";
+  }
+}
+function EmailValidate() {
+  var mail = document.getElementById("email").value;
+  if(mail.trim() == "" || !REemail.test(mail)) {
+	elements[1].style.display = "block";
+  } else {
+	elements[1].style.display = "none";
+  }
+}
+function SayisalValidate() {
+  var sayisal = document.getElementById("sayisal").value;
+  if(sayisal.trim() == "" || !REsayisal.test(sayisal)) {
+	elements[2].style.display = "block";
+  } else {
+	elements[2].style.display = "none";
+  }
+}
+function BasamakliValidate() {
+  var basamakli = document.getElementById("basamakli").value;
+  if(basamakli.trim() == "" || !REbasamakli.test(basamakli)) {
+	elements[3].style.display = "block";
+  } else {
+	elements[3].style.display = "none";
+  }
+}
+function AlfaValidate() {
+  var alfa = document.getElementById("alfa").value;
+  if(alfa.trim() == "" || !REalfa.test(alfa)) {
+	elements[4].style.display = "block";
+  } else {
+	elements[4].style.display = "none";
+  }
+}
+function MaxValidate() {
+  var max = document.getElementById("max30").value;
+  if(max.trim() == "" || !REmax.test(max)) {
+	elements[5].style.display = "block";
+  } else {
+	elements[5].style.display = "none";
+  }
+}
+function UcKelimeValidate() {
+  var uckelime = document.getElementById("uckelime").value;
+  if(uckelime.trim() == "" || !REuckelime.test(uckelime.trim())) {
+	elements[6].style.display = "block";
+  } else {
+	elements[6].style.display = "none";
+  }
+}
+function PasswordValidate() {
+  var password = document.getElementById("password").value;
+  if(password.trim() == "" || !REpassword.test(password)) {
+	elements[7].style.display = "block";
+  } else {
+	elements[7].style.display = "none";
+  }
+}
+</script>
+</head>
+<body>
+
+<form name="myForm" action="success.html" onsubmit="return validateForm()" method="post">
+  Aşağıdaki hiçbir input boş olmamalı: <br>
+  
+
+  <table style="width:50%">
+  <tr>
+    <td>Boş olmamalı: </td>
+    <td><input type="text" id="name" onfocusout="NameValidate()"></td>
+	<td class="valid" style="color:red; font-size:10px; width:10%; display:none;">Geçersiz Input</td>
+    
+  </tr>
+  <tr>
+    <td>E-mail (Kurallara uygun email): </td>
+    <td><input type="text" id="email" onfocusout="EmailValidate()"></td>
+    <td class="valid" style="color:red; font-size:10px; width:10%; display:none;">Geçersiz Input</td>
+  </tr>
+  <tr>
+    <td>Sadece sayısal: </td>
+    <td><input type="text" id="sayisal" onfocusout="SayisalValidate()"></td>
+	<td class="valid" style="color:red; font-size:10px; width:10%; display:none;">Geçersiz Input</td>
+  </tr>
+  <tr>
+    <td>Sadece sayısal olan ve 12 basamak uzunluğundaki sayi: </td>
+    <td><input type="text" id="basamakli" onfocusout="BasamakliValidate()"></td>
+	<td class="valid" style="color:red; font-size:10px; width:10%; display:none;">Geçersiz Input</td>
+  </tr>
+  <tr>
+    <td>Sadece harf (a..z veya A..Z): </td>
+    <td><input type="text" id="alfa" onfocusout="AlfaValidate()"></td>
+	<td class="valid" style="color:red; font-size:10px; width:10%; display:none;">Geçersiz Input</td>
+  </tr>
+  <tr>
+    <td>Sadece harf ve en fazla 30 uzunlukta olan string: </td>
+    <td><input type="text" id="max30" onfocusout="MaxValidate()"></td>
+	<td class="valid" style="color:red; font-size:10px; width:10%; display:none;">Geçersiz Input</td>
+  </tr>
+  <tr>
+    <td>3 kelimeden oluşan string: </td>
+    <td><input type="text" id="uckelime" onfocusout="UcKelimeValidate()"></td>
+	<td class="valid" style="color:red; font-size:10px; width:10%; display:none;">Geçersiz Input</td>
+  </tr>
+  <tr>
+    <td>En az 1 büyük harf, en az 1 küçük harf, en az bir rakam ve en az 1 noktalama işareti içeren ve en az 8 uzunluğunda olan metin: </td>
+    <td><input type="text" id="password" onfocusout="PasswordValidate()"></td>
+	<td class="valid" style="color:red; font-size:10px; width:10%; display:none;">Geçersiz Input</td>
+  </tr>
+  
+
+</table>
+
+<br>
+  <input type="submit" value="Submit">
+</form>
+
+</body>
+</html>
